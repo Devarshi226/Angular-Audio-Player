@@ -1,0 +1,35 @@
+
+<!-- <div>
+  <input type="file" (change)="onFileSelected($event)" accept="audio/*">
+  <button (click)="playAudio()" [disabled]="!audioLoaded">Play Audio</button>
+  <button (click)="stopAudio()" [disabled]="!audioLoaded">Stop Audio</button>
+</div> -->
+
+<div class="audio-player">
+  <h1>Audio Player</h1>
+  <div class="upload-section">
+    <input type="file" (change)="onFileSelected($event)" accept="audio/*">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>File Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of audioFiles; let i = index">
+        <td>{{ file.name }}</td>
+        <td>
+          <button (click)="playAudio(i)">Play</button>
+          <button (click)="stopAudio()">Stop</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="control-buttons">
+    <button (click)="playPreviousAudio()" [disabled]="currentIndex <= 0">Previous</button>
+    <button (click)="playNextAudio()" [disabled]="currentIndex >= audioFiles.length - 1 || currentIndex === -1">Next</button>
+  </div>
+</div>
+
