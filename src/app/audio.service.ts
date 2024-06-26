@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,11 +7,27 @@ import { Injectable } from '@angular/core';
 export class AudioService {
 
   private audio: HTMLAudioElement;
+  private audioState: 'playing' | 'paused' | 'stopped';
+  audioStateChanged: Subject<'playing' | 'paused' | 'stopped'> = new Subject();
 
   constructor() {
     this.audio = new Audio();
+    this.audioState = 'stopped';
+    this.audio.onended = () => {
+      this.audioState = 'stopped';
+      this.audioStateChanged.next(this.audioState);
+    };
+    this.audio.onpause = () => {
+      if (!this.audio.ended) {
+        this.audioState = 'paused';
+        this.audioStateChanged.next(this.audioState);
+      }
+    };
+    this.audio.onplay = () => {
+      this.audioState = 'playing';
+      this.audioStateChanged.next(this.audioState);
+    };
   }
-
   // loadAudio(filePath: string) {
   //   console.log("loadAudio" , filePath)
   //   this.audio.src = filePath;
@@ -32,6 +49,11 @@ export class AudioService {
 
   }
 
+  pauseAudio(): void {
+    this.audio.pause();
+    this.audio.currentTime = 0;
+  }
+
   setLoop(loop: boolean) {
     this.audio.loop = loop;
   }
@@ -44,6 +66,10 @@ export class AudioService {
     if (this.maxDurationTimeout) {
       clearTimeout(this.maxDurationTimeout);
     }
+  }
+
+  setVolume(volume: number): void {
+    this.audio.volume = volume;
   }
 
 

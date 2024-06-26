@@ -15,11 +15,16 @@ interface AudioFile {
 export class UploadedAudioPlayComponent {
   audioFiles: AudioFile[] = [];
   currentIndex: number = -1;
+  volume: number = 1;
+  isPlaying: boolean = false;
 
   constructor(private audioService: AudioService) {}
 
   ngOnInit(): void {
     this.loadAudioFiles();
+    this.audioService.audioStateChanged.subscribe((state : any) => {
+      this.isPlaying = state === 'playing';
+    });
   }
 
   onFileSelected(event: Event): void {
@@ -59,6 +64,22 @@ export class UploadedAudioPlayComponent {
     }
   }
 
+  togglePlayPause(): void {
+    if (this.isPlaying) {
+      this.audioService.pauseAudio();
+    } else {
+      if (this.currentIndex !== -1) {
+        this.audioService.playAudio().catch(error => console.error('Audio play failed:', error));
+      }
+    }
+  }
+
+  setVolume(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.volume = input.valueAsNumber;
+    this.audioService.setVolume(this.volume);
+  }
+
   private saveAudioFiles(): void {
     localStorage.setItem('audioFiles', JSON.stringify(this.audioFiles));
   }
@@ -89,7 +110,6 @@ export class UploadedAudioPlayComponent {
     }
     return new Blob([ab], { type: mimeString });
   }
-
 
 
 

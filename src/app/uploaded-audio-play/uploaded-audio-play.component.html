@@ -13,23 +13,33 @@
   <table>
     <thead>
       <tr>
-        <th>File Name</th>
-        <th>Actions</th>
+        <th>Songs</th>
+        <th>Play</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let file of audioFiles; let i = index">
+      <tr *ngFor="let file of audioFiles; let i = index" [class.highlight]="i === currentIndex">
         <td>{{ file.name }}</td>
         <td>
-          <button (click)="playAudio(i)">Play</button>
-          <button (click)="stopAudio()">Stop</button>
+          <button (click)="playAudio(i)">Select</button>
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> 
   <div class="control-buttons">
-    <button (click)="playPreviousAudio()" [disabled]="currentIndex <= 0">Previous</button>
-    <button (click)="playNextAudio()" [disabled]="currentIndex >= audioFiles.length - 1 || currentIndex === -1">Next</button>
+    <button (click)="playPreviousAudio()" [disabled]="currentIndex <= 0">⏮️ Previous</button>
+    <button (click)="togglePlayPause()">
+      <ng-container *ngIf="isPlaying; else showPlay">
+        Pause ⏸️
+      </ng-container>
+      <ng-template #showPlay>
+        Play ▶️
+      </ng-template>
+    </button>
+    <button (click)="playNextAudio()" [disabled]="currentIndex >= audioFiles.length - 1 || currentIndex === -1">Next ⏭️</button>
+  </div>
+  <div class="volume-control">
+    <label for="volume">Volume 🔊:</label>
+    <input id="volume" type="range" min="0" max="1" step="0.01" [value]="volume" (input)="setVolume($event)">
   </div>
 </div>
-

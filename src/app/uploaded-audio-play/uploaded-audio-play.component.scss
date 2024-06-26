@@ -59,8 +59,10 @@
   
     .control-buttons {
       text-align: center;
+      
   
       button {
+        // font-size: 20px;
         padding: 10px 20px;
         margin: 0 10px;
         border: none;
@@ -79,5 +81,23 @@
         }
       }
     }
+    .volume-control {
+        text-align: center;
+        margin-top: 20px;
+    
+        label {
+          margin-right: 10px;
+          font-weight: bold;
+          font-size: 20px;
+        }
+    
+        input[type="range"] {
+          vertical-align: middle;
+        }
+      }
+      .highlight {
+        background-color: #d3d3d3; /* Light gray background */
+        font-weight: bold; /* Bold text */
+      }
   }
   
