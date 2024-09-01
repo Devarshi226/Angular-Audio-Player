@@ -50,6 +50,14 @@ Explore the key features of the Audio Player:
 3. **Playback Controls**: Use the play, pause, next, and previous buttons to navigate through your music.
 4. **Track Selection**: Select the specific music file you want to play from the queue.
 
+## Demo Photos
+
+![homepage](https://github.com/Devarshi226/Angular-Audio-Player/blob/0917cd8c5154bdc191bf56835bd705a6cca76be4/src/assets/Screen-shot/audio1.png)
+![MultiSelect](https://github.com/Devarshi226/Angular-Audio-Player/blob/0917cd8c5154bdc191bf56835bd705a6cca76be4/src/assets/Screen-shot/multi-audio.png)
+![Next-previu](https://github.com/Devarshi226/Angular-Audio-Player/blob/0917cd8c5154bdc191bf56835bd705a6cca76be4/src/assets/Screen-shot/select-audio.png)
+
+
+
 ## Contact Us 📞
 
 For support or inquiries, please reach out to us:
